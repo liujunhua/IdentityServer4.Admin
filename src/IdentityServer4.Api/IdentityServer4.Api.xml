@@ -1,0 +1,212 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>IdentityServer4.Api</name>
+    </assembly>
+    <members>
+        <member name="T:IdentityServer4.Api.ApiResult">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdentityServer4.Api.ApiResult.StatusCode">
+            <summary>
+            响应状态码
+            </summary>
+        </member>
+        <member name="P:IdentityServer4.Api.ApiResult.Data">
+            <summary>
+            业务返回数据
+            </summary>
+        </member>
+        <member name="P:IdentityServer4.Api.ApiResult.ErrorMessage">
+            <summary>
+            异常消息
+            </summary>
+        </member>
+        <member name="P:IdentityServer4.Api.ApiResult.IsSuccess">
+            <summary>
+            操作是否成功
+            </summary>
+        </member>
+        <member name="T:IdentityServer4.Api.Controllers.RoleController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:IdentityServer4.Api.Controllers.RoleController.#ctor(Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Services.Interfaces.IIdentityService{Skoruba.IdentityServer4.Admin.EntityFramework.DbContexts.AdminDbContext,Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity.UserDto{System.Int32},System.Int32,Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity.RoleDto{System.Int32},System.Int32,System.Int32,System.Int32,Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity.UserIdentity,Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity.UserIdentityRole,System.Int32,Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity.UserIdentityUserClaim,Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity.UserIdentityUserRole,Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity.UserIdentityUserLogin,Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity.UserIdentityRoleClaim,Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity.UserIdentityUserToken})">
+            <summary>
+            
+            </summary>
+            <param name="identityService"></param>
+        </member>
+        <member name="T:IdentityServer4.Api.Controllers.UserController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:IdentityServer4.Api.Controllers.UserController.#ctor(Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Services.Interfaces.IIdentityService{Skoruba.IdentityServer4.Admin.EntityFramework.DbContexts.AdminDbContext,Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity.UserDto{System.Int32},System.Int32,Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity.RoleDto{System.Int32},System.Int32,System.Int32,System.Int32,Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity.UserIdentity,Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity.UserIdentityRole,System.Int32,Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity.UserIdentityUserClaim,Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity.UserIdentityUserRole,Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity.UserIdentityUserLogin,Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity.UserIdentityRoleClaim,Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity.UserIdentityUserToken})">
+            <summary>
+            
+            </summary>
+            <param name="identityService"></param>
+        </member>
+        <member name="M:IdentityServer4.Api.Controllers.UserController.ChangePassword(Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity.UserChangePasswordDto{System.Int32})">
+            <summary>
+            修改密码
+            </summary>
+            <param name="userPassword"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IdentityServer4.Api.Controllers.UserController.Save(Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity.UserDto{System.Int32})">
+            <summary>
+            用户保存
+            </summary>
+            <param name="userDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IdentityServer4.Api.Controllers.UserController.CreateUserRole(Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity.UserRolesDto{Skoruba.IdentityServer4.Admin.BusinessLogic.Identity.Dtos.Identity.RoleDto{System.Int32},System.Int32,System.Int32})">
+            <summary>
+            增加角色
+            </summary>
+            <param name="userRole"></param>
+            <returns></returns>
+        </member>
+        <member name="T:IdentityServer4.Api.ApiResultAttribute">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:IdentityServer4.Api.ApiResultAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:IdentityServer4.Api.ApiResultAttribute.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:IdentityServer4.Api.Startup">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:IdentityServer4.Api.Startup.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            
+            </summary>
+            <param name="env"></param>
+        </member>
+        <member name="P:IdentityServer4.Api.Startup.Configuration">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdentityServer4.Api.Startup.HostingEnvironment">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:IdentityServer4.Api.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:IdentityServer4.Api.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+        <member name="M:Skoruba.IdentityServer4.Admin.Helpers.DbMigrationHelpers.EnsureSeedData(Microsoft.AspNetCore.Hosting.IWebHost)">
+            <summary>
+            Generate migrations before running this method, you can use command bellow:
+            Nuget package manager: Add-Migration DbInit -context AdminDbContext -output Data/Migrations
+            Dotnet CLI: dotnet ef migrations add DbInit -c AdminDbContext -o Data/Migrations
+            </summary>
+            <param name="host"></param>
+        </member>
+        <member name="M:Skoruba.IdentityServer4.Admin.Helpers.DbMigrationHelpers.EnsureSeedIdentityData(Microsoft.AspNetCore.Identity.UserManager{Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity.UserIdentity},Microsoft.AspNetCore.Identity.RoleManager{Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity.UserIdentityRole})">
+            <summary>
+            Generate default admin user / role
+            </summary>
+        </member>
+        <member name="M:Skoruba.IdentityServer4.Admin.Helpers.DbMigrationHelpers.EnsureSeedIdentityServerData(Skoruba.IdentityServer4.Admin.EntityFramework.DbContexts.AdminDbContext,Skoruba.IdentityServer4.Admin.Configuration.Interfaces.IAdminConfiguration)">
+            <summary>
+            Generate default clients, identity and api resources
+            </summary>
+        </member>
+        <member name="T:Skoruba.IdentityServer4.Admin.Helpers.Identity.IdentityErrorMessages">
+            <inheritdoc />
+            <summary>
+            If you want to create localization for Asp.Net Identity - it is one way how do that - override methods here
+            And register this class into DI system - services.AddTransient - IdentityErrorDescriber, IdentityErrorMessages
+            Or install package with specific language - https://www.nuget.org/packages?q=Microsoft.AspNet.Identity.Core
+            </summary>
+        </member>
+        <member name="T:Skoruba.IdentityServer4.Admin.Helpers.Md5HashHelper">
+            <summary>
+            Helper-class to create Md5hashes from strings
+            </summary>
+        </member>
+        <member name="M:Skoruba.IdentityServer4.Admin.Helpers.Md5HashHelper.GetHash(System.String)">
+            <summary>
+            Computes a Md5-hash of the submitted string and returns the corresponding hash
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Skoruba.IdentityServer4.Admin.Helpers.StartupHelpers.AddAuthorizationPolicies(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Skoruba.IdentityServer4.Admin.Helpers.StartupHelpers.AddMvcExceptionFilters(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Skoruba.IdentityServer4.Admin.Helpers.StartupHelpers.AddMvcLocalization(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Skoruba.IdentityServer4.Admin.Helpers.StartupHelpers.AddAuthenticationServices``3(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.AspNetCore.Hosting.IHostingEnvironment,Skoruba.IdentityServer4.Admin.Configuration.Interfaces.IAdminConfiguration)">
+            <summary>
+            
+            </summary>
+            <typeparam name="TContext"></typeparam>
+            <typeparam name="TUserIdentity"></typeparam>
+            <typeparam name="TUserIdentityRole"></typeparam>
+            <param name="services"></param>
+            <param name="hostingEnvironment"></param>
+            <param name="adminConfiguration"></param>
+        </member>
+        <member name="M:Skoruba.IdentityServer4.Admin.Helpers.TagHelpers.PickerTagHelper.GetSelectedItems">
+            <summary>
+            Get Selected Items
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Skoruba.IdentityServer4.Admin.Helpers.TagHelpers.PickerTagHelper.GetSelectedItemsWithRemovedQuotes">
+            <summary>
+            Get Selected Items - with removed quotes
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Skoruba.IdentityServer4.Admin.Helpers.TagHelpers.PickerTagHelper.GetSelectedItemWithRemovedQuotes">
+            <summary>
+            Get Selected Item - with removed quotes, the picker component expect the collection of items, therefore it is used the list for single value as well
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
