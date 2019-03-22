@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -14,8 +16,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.PlatformAbstractions;
 using Serilog;
 using Skoruba.IdentityServer4.STS.Identity.Configuration.Constants;
+using Skoruba.IdentityServer4.STS.Identity.Filters;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Skoruba.IdentityServer4.STS.Identity.Helpers
@@ -26,7 +30,7 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
         {
             services.AddLocalization(opts => { opts.ResourcesPath = ConfigurationConsts.ResourcesPath; });
 
-            services.AddMvc()
+            services.AddMvc(options => { options.Filters.Add(typeof(ApiResultAttribute)); })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddViewLocalization(
                     LanguageViewLocationExpanderFormat.Suffix,
@@ -86,25 +90,36 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
                 .AddAspNetIdentity<TUserIdentity>()
                 .AddConfigurationStore(options =>
                 {
-                    options.ConfigureDbContext = b => b.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly));
+                    options.ConfigureDbContext = b => b.UseSqlServer(connectionString, sql => { sql.MigrationsAssembly(migrationsAssembly); sql.UseRowNumberForPaging(); });
                 })
                 .AddOperationalStore(options =>
                 {
-                    options.ConfigureDbContext = b => b.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(migrationsAssembly));
+                    options.ConfigureDbContext = b => b.UseSqlServer(connectionString, sql => { sql.MigrationsAssembly(migrationsAssembly); sql.UseRowNumberForPaging(); });
                     options.EnableTokenCleanup = true;
 #if DEBUG
                     options.TokenCleanupInterval = 15;
 #endif                
                 });
 
-            builder.AddCustomSigningCredential(configuration, logger);
+
+            if (hostingEnvironment.IsDevelopment())
+            {
+                builder.AddDeveloperSigningCredential();
+            }
+            else
+            {
+                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                builder.AddSigningCredential(new X509Certificate2(Path.Combine(basePath, "certificate\\cas.service.pfx"), "123456"));
+                //throw new Exception("need to configure key material");
+            }
             builder.AddCustomValidationKey(configuration, logger);
         }
 
         public static void AddDbContexts<TContext>(this IServiceCollection services, IConfiguration configuration) where TContext : DbContext
         {
             var connectionString = configuration.GetConnectionString(ConfigurationConsts.AdminConnectionStringKey);
-            services.AddDbContext<TContext>(options => options.UseSqlServer(connectionString));
+            //services.AddDbContext<TContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<TContext>(options => options.UseSqlServer(connectionString, optionsSql => { optionsSql.UseRowNumberForPaging(); }));
         }
 
         public static void UseMvcLocalizationServices(this IApplicationBuilder app)

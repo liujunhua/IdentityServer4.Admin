@@ -6,6 +6,7 @@
 
 using System;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using IdentityModel;
 using IdentityServer4.Events;
@@ -18,6 +19,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Identity.Entities.Identity;
+using Skoruba.IdentityServer4.STS.Identity.Helpers;
 
 namespace Skoruba.IdentityServer4.STS.Identity.Quickstart.Account
 {
@@ -67,12 +69,35 @@ namespace Skoruba.IdentityServer4.STS.Identity.Quickstart.Account
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetVerificationCode()
+        {
+            string code = string.Empty;
+            var baseArr = YZMHelper.GetCode(out code);
+            HttpContext.Session.Set("VerificationCode", Encoding.UTF8.GetBytes(code));
+            return File(baseArr, "image/png");
+        }
+
+        /// <summary>
         /// Handle postback from username/password login
         /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginInputModel model, string button)
         {
+            //if (!HttpContext.Session.TryGetValue("VerificationCode", out byte[] verificationCode))
+            //{
+            //    throw new Exception("验证码已失效");
+            //}
+            //if (!Encoding.UTF8.GetString(verificationCode).ToLower().Equals(model.VerificationCode.ToLower()))
+            //{
+            //    throw new Exception("验证码不正确");
+            //}
+
+
             // check if we are in the context of an authorization request
             var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
 

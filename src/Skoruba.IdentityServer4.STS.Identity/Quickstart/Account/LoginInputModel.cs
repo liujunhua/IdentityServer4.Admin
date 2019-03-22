@@ -16,5 +16,10 @@ namespace Skoruba.IdentityServer4.STS.Identity.Quickstart.Account
         public string Password { get; set; }
         public bool RememberLogin { get; set; }
         public string ReturnUrl { get; set; }
+
+        /// <summary>
+        /// 验证码
+        /// </summary>
+        public string VerificationCode { get; set; }
     }
 }
