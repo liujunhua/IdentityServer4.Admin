@@ -42,18 +42,15 @@ namespace Skoruba.IdentityServer4.STS.Identity
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var redisDefaultConnection = Configuration["Redis:ConnectionStrings:DefaultConnection"];
-            var redis = ConnectionMultiplexer.Connect(redisDefaultConnection);
-            services.AddDataProtection().SetApplicationName("session_application_name").PersistKeysToStackExchangeRedis(redis, "DataProtection-Keys");
-
-
-            services.AddDistributedServiceStackRedisCache(options =>
-            {
-
-                options.Host = redisDefaultConnection;
-                options.Port = 6379;
-                //options.InstanceName = "redis_session";
-            });
+            //var redisDefaultConnection = Configuration["Redis:ConnectionStrings:DefaultConnection"];
+            //var redis = ConnectionMultiplexer.Connect(redisDefaultConnection);
+            //services.AddDataProtection().SetApplicationName("session_application_name").PersistKeysToStackExchangeRedis(redis, "DataProtection-Keys");
+            //services.AddDistributedServiceStackRedisCache(options =>
+            //{
+            //    options.Host = "172.16.1.245";
+            //    options.Port = 6379;
+            //    //options.InstanceName = "redis_session";
+            //});
 
             services.AddDbContexts<AdminDbContext>(Configuration);
             services.AddAuthenticationServices<AdminDbContext, UserIdentity, UserIdentityRole>(Environment, Configuration, Logger);

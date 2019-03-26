@@ -77,7 +77,7 @@ namespace Skoruba.IdentityServer4.STS.Identity.Quickstart.Account
         {
             string code = string.Empty;
             var baseArr = YZMHelper.GetCode(out code);
-            HttpContext.Session.Set("VerificationCode", Encoding.UTF8.GetBytes(code));
+            //HttpContext.Session.Set("VerificationCode", Encoding.UTF8.GetBytes(code));
             return File(baseArr, "image/png");
         }
 

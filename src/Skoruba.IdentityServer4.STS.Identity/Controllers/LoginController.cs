@@ -73,7 +73,7 @@ namespace Skoruba.IdentityServer4.STS.Identity.Controllers
                 {
                     var apiResult = await UserService.SetSessionInfo(new SearchDto() { Value = model.UserName });
 
-                    HttpContext.Session.Set("UserInfo", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(apiResult.Data)));
+                    //HttpContext.Session.Set("UserInfo", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(apiResult.Data)));
                 }
                 catch (Exception ex)
                 {
