@@ -52,38 +52,21 @@ namespace Skoruba.IdentityServer4.STS.Identity.Controllers
             //{
             //    throw new Exception("验证码不正确");
             //}
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            dict["client_id"] = model.ClientId;
-            dict["client_secret"] = model.ClientSecret;
-            dict["grant_type"] = model.GrantType;
-            dict["username"] = model.UserName;
-            dict["password"] = model.Password;
-            var tokenUri = Configuration["IdentityService:TokenUri"];
-            using (HttpClient http = HttpClientFactory.Create()) //; new HttpClient())
-            using (var content = new FormUrlEncodedContent(dict))
-            {
-                var msg = await http.PostAsync(tokenUri, content);
-                if (!msg.IsSuccessStatusCode)
-                {
-                    return StatusCode(Convert.ToInt32(msg.StatusCode));
-                }
 
-                string result = await msg.Content.ReadAsStringAsync();
-                try
-                {
-                    var apiResult = await UserService.SetSessionInfo(new SearchDto() { Value = model.UserName });
+            var apiResult = await UserService.Login(new LoginUser() { LoginName = model.UserName, Password = model.Password, VerificationCode = "" });
+            var result = JsonConvert.SerializeObject(new LoginResult() { access_token = apiResult.Data.ToString() });
 
-                    //HttpContext.Session.Set("UserInfo", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(apiResult.Data)));
-                }
-                catch (Exception ex)
-                {
-                    var temp = ex;
-                    throw ex;
-                }
-                //var user = await UserManager.FindByNameAsync(model.UserName);
-
-                return Content(result, "application/json");
-            }
+            return Content(result, "application/json");
         }
+    }
+
+    public class LoginResult
+    {
+        public string access_token { get; set; }
+
+        public string token_type { get; set; } = "Bearer";
+
+        public int expires_in { get; set; } = 3600;
+
     }
 }

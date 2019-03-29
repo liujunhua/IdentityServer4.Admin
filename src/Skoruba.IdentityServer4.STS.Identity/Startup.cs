@@ -42,16 +42,6 @@ namespace Skoruba.IdentityServer4.STS.Identity
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //var redisDefaultConnection = Configuration["Redis:ConnectionStrings:DefaultConnection"];
-            //var redis = ConnectionMultiplexer.Connect(redisDefaultConnection);
-            //services.AddDataProtection().SetApplicationName("session_application_name").PersistKeysToStackExchangeRedis(redis, "DataProtection-Keys");
-            //services.AddDistributedServiceStackRedisCache(options =>
-            //{
-            //    options.Host = "172.16.1.245";
-            //    options.Port = 6379;
-            //    //options.InstanceName = "redis_session";
-            //});
-
             services.AddDbContexts<AdminDbContext>(Configuration);
             services.AddAuthenticationServices<AdminDbContext, UserIdentity, UserIdentityRole>(Environment, Configuration, Logger);
             services.AddMvcLocalization();
@@ -73,20 +63,17 @@ namespace Skoruba.IdentityServer4.STS.Identity
                         builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials().AllowAnyOrigin();
                     });
             });
-            services.AddSession(options => { options.IdleTimeout = TimeSpan.FromSeconds(1000); });
-
+         
             services.AddHttpApi<IUserService>().ConfigureHttpApiConfig((c, p) =>
             {
                 c.HttpHost = new Uri(Configuration["ApiGateway:BaseUrl"]);
                 c.FormatOptions.DateTimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
                 c.LoggerFactory = p.GetRequiredService<ILoggerFactory>();
-                c.GlobalFilters.Add(new TokenFilter($"{Configuration["ApiGateway:BaseUrl"]}/connect/token", Configuration["Service:Client:Id"], Configuration["Service:Client:Secret"]));
             });
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("IdentityService", new Info { Title = "IdentityService API", Version = "v1" });
-                //c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "Skoruba.IdentityServer4.STS.Identity.xml"));
             });
         }
 
@@ -109,7 +96,6 @@ namespace Skoruba.IdentityServer4.STS.Identity
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSession();
             app.UseSecurityHeaders();
             app.UseStaticFiles();
             app.UseIdentityServer();
